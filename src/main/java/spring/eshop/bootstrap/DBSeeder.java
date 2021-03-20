@@ -23,53 +23,36 @@ import java.util.Set;
 @Component
 public class DBSeeder {
 
-        @Autowired
-        ProductRepository productRepository;
+    @Autowired
+    ProductRepository productRepository;
 
-        @Autowired
-        CategoryRepository categoryRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
-        @EventListener
-        public void seed(ContextRefreshedEvent event) {
+    @EventListener
+    public void seed(ContextRefreshedEvent event) throws IOException {
 
-                ObjectMapper mapper = new ObjectMapper();
-                TypeReference<List<Product>> mapProducts = new TypeReference<>() {};
-                TypeReference<List<Category>> mapCategories = new TypeReference<>() {};
-                InputStream productIs = TypeReference.class.getResourceAsStream("/productData.json");
-                InputStream categoryIs = TypeReference.class.getResourceAsStream("/categoryData.json");
+        ObjectMapper mapper = new ObjectMapper();
+        TypeReference<List<Product>> mapProducts = new TypeReference<>() {
+        };
+        TypeReference<List<Category>> mapCategories = new TypeReference<>() {
+        };
+        InputStream productIs = TypeReference.class.getResourceAsStream("/productData.json");
+        InputStream categoryIs = TypeReference.class.getResourceAsStream("/categoryData.json");
 
-                try {
-                        List<Category> categoryList = mapper.readValue(categoryIs, mapCategories);
-                        List<Product> productList = mapper.readValue(productIs, mapProducts);
-                        Set<Product> products = new HashSet<>();
-
-                        for(Product product: productList){
-                                System.out.println(product.getCategory().getId());
-                                products.add(product);
-                        }
-                        productRepository.saveAll(productList);
-
-                        for(Category category: categoryList){
-                                System.out.println(category.getName());
-                                category.setProducts(products);
-                        }
-
-                        categoryRepository.saveAll(categoryList);
-                        System.out.println("Products list saved successfully");
-                        System.out.println("Categories list saved successfully");
-                } catch (IOException e) {
-                        System.out.println(e.getMessage());
-                }
+        List<Category> categoryList = mapper.readValue(categoryIs, mapCategories);
+        List<Product> productList = mapper.readValue(productIs, mapProducts);
 
 
-
-
-
-
-
-
-
-
+        categoryRepository.saveAll(categoryList);
+        for (Product product : productList) {
+            product.setCategory(categoryRepository.findById(product.getCategory().getId()).get());
         }
+        productRepository.saveAll(productList);
+        System.out.println("Products list saved successfully");
+        System.out.println("Categories list saved successfully");
+
+
+    }
 
 }

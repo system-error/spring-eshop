@@ -29,7 +29,9 @@ public class Product {
 
     private long stock;
 
+    private String image;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id",nullable=false)
     private Category category;
 }

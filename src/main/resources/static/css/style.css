@@ -1,0 +1,20 @@
+.desc {
+    /*width: 500px;*/
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    word-wrap: break-word;
+    max-height: 5.6em;
+    line-height: 1.8em;
+}
+.title {
+    width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    word-wrap: break-word;
+    max-height: 5.6em;
+    line-height: 1.8em;
+}
