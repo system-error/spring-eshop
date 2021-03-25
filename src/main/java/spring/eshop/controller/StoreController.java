@@ -26,4 +26,5 @@ public class StoreController {
         model.addAttribute("products",products);
         return "products";
     }
+
 }

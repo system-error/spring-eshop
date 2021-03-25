@@ -1,7 +1,9 @@
 package spring.eshop.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -11,9 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+//    @Qualifier("customUserDetailsService")
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -27,15 +31,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/customer").hasRole("CUSTOMER")
-                .antMatchers("/user").hasAnyRole("USER","ADMIN")
-                .antMatchers("/**").permitAll()
-                .antMatchers("/password").permitAll()
+                .antMatchers("/user").hasAnyRole("ADMIN","USER")
+                .antMatchers("/").permitAll()
+//                .antMatchers("/password").permitAll()
                 .and()
                 .formLogin();
+//                    .defaultSuccessUrl("/success",true)
+//                    .and()
+//                .httpBasic();
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder(){
+
         return new BCryptPasswordEncoder();
     }
 }

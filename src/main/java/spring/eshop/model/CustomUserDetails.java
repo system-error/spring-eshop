@@ -10,18 +10,19 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TheUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
+
     private User user;
     private List<GrantedAuthority> authorities;
 
-    public TheUserDetails(User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
         this.authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
-    public TheUserDetails() {}
+    public CustomUserDetails() {}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
