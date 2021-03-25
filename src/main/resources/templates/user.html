@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="fragments/general.html :: css"> </th:block>
+    <title>Title</title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navbar"> </header>
+<h1>Hello User</h1>
+
+<h2><a th:href="@{/administrator/dashboard}">Dashboard</a></h2>
+<footer class="container-fluid" th:insert="fragments/general.html :: footer"> </footer>
+</body>
+</html>

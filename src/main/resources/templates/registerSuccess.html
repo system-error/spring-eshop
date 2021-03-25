@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="fragments/general.html :: css"> </th:block>
+    <title>Registration Succeeded</title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: navbar"> </header>
+    <div class="container text-center">
+        <div>
+            <h3>You have signed up successfully!</h3>
+        </div>
+    </div>
+<footer class="container-fluid" th:insert="fragments/general.html :: footer"> </footer>
+</body>
+</html>
