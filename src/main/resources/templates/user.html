@@ -7,9 +7,11 @@
 </head>
 <body>
 <header th:insert="fragments/general.html :: navbar"> </header>
-<h1>Hello User</h1>
 
-<h2><a th:href="@{/administrator/dashboard}">Dashboard</a></h2>
+<!--<th:block th:insert="fragments/general.html :: dashboard"> </th:block>-->
+<h1>Hello User <span th:text="*{username}">Username</span></h1>
+
+
 <footer class="container-fluid" th:insert="fragments/general.html :: footer"> </footer>
 </body>
 </html>

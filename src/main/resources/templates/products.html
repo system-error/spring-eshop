@@ -13,7 +13,7 @@
                     <div class="row" >
 
                         <div class="col-md-2" th:each="product: ${products}">
-                            <div class="card"> <img th:src="'/images/'+${product.getImage()}" height="200" width="250" class="card-img-top">
+                            <div class="card"> <img th:src="'/images/'+${product.getImageName()}" class="card-img-top">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between"> <span class="font-weight-bold title" th:text="${product.getName()}">Product Title</span> <span class="font-weight-bold" th:text="'€ '+${product.getPrice()}">Product Price</span> </div>
 <!--                                    <th:block th:insert="fragments/general.html :: css"> </th:block>-->

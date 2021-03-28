@@ -29,14 +29,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin","/administrator/**").hasRole("ADMIN")
                 .antMatchers("/customer").hasRole("CUSTOMER")
                 .antMatchers("/user").hasAnyRole("ADMIN","USER")
                 .antMatchers("/").permitAll()
 //                .antMatchers("/password").permitAll()
                 .and()
-                .formLogin();
-//                    .defaultSuccessUrl("/success",true)
+                .formLogin()
+                    .defaultSuccessUrl("/success",true)
+                .and()
+                .logout()
+                    .logoutSuccessUrl("/");
 //                    .and()
 //                .httpBasic();
     }

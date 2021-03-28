@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:insert="fragments/adminGeneral.html :: cssAdmin"> </th:block>
+</head>
+<body>
+<th:block th:insert="fragments/adminGeneral.html :: navbarAdmin"> </th:block>
+
+<div class="container-fluid">
+    <div class="row">
+        <th:block th:insert="fragments/adminGeneral.html :: sidebarMenuAdmin"> </th:block>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="container-fluid">
+                <div class="row">
+                    <h2 class="col col-lg-10">Add Product</h2>
+<!--                    <button class="col col-lg-2 btn btn-light" type="button" ><a th:href="@{/administrator/addProduct}">add product</a></button>-->
+                </div>
+            </div>
+        <form th:action="@{/administrator/products}" method="post" th:object="${product}" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="productAddName">Product Name</label>
+                <input type="text" class="form-control" id="productAddName" th:field="*{name}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productAddSelect">Select Category</label>
+                <select class="form-control" id="productAddSelect" th:field="*{category}">
+
+                    <option th:each="category: ${categories}"
+                            th:text="${category.id}+' - '+ ${category.name}"
+                            th:value="${category.id}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productAddTextArea">Description</label>
+                <textarea class="form-control" id="productAddTextArea" rows="3" th:field="*{description}"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productAddPrice">Product price</label>
+                <input type="number" class="form-control" id="productAddPrice" th:field="*{price}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productAddStock">Product stock</label>
+                <input type="number" class="form-control" id="productAddStock" th:field="*{stock}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productAddImage">Product image</label>
+                <input type="file" class="form-control-file" id="productAddImage" th:field="*{image}" required>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Add Product</button>
+            </div>
+        </form>
+
+            </div>
+        </main>
+
+    </div>
+</div>
+
+<th:block th:insert="fragments/adminGeneral.html :: footerAdmin"> </th:block>
+</body>
+</html>

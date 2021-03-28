@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
 import java.math.BigDecimal;
 
 @Entity
@@ -29,9 +31,14 @@ public class Product {
 
     private long stock;
 
-    private String image;
+    @Transient
+    private MultipartFile image;
+
+    private String imageName;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class)
     @JoinColumn(name = "category_id",nullable=false)
     private Category category;
+
+
 }
